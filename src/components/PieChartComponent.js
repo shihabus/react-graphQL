@@ -4,6 +4,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
 function PieChartComponent({ options }) {
+    console.log('Ram',options)
     const { count_since_sevendays, count_since_yesterday, total_count, count_prior_sevendays, fetched,owner,name } = options
     const _options = {
         animationEnabled: true,
@@ -20,9 +21,9 @@ function PieChartComponent({ options }) {
             type: "doughnut",
             showInLegend: true,
             indexLabel: "{name}: {y}",
-            yValueFormatString: "#,###",
+            yValueFormatString: "##",
             dataPoints: [
-                { name: "Since past sevendays", y: count_since_sevendays },
+                { name: "Since past sevendays", y: count_since_sevendays},
                 { name: "Since yesterday", y: count_since_yesterday },
                 { name: "Prior to past sevendays", y: count_prior_sevendays },
             ]

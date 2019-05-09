@@ -30,7 +30,7 @@ function Input({ handleQuery }) {
   }
   return (
     <div class="ui raised very padded text container segment">
-      <p class="ui teal ribbon label" style={{ marginLeft: 10, marginBottom: 10 }}><i class="github icon"></i> OPEN ISSUE EXPLORER</p>
+      <p class="ui teal ribbon label" style={{ marginLeft: 10, marginBottom: 10 }}><i class="github icon"></i> OPEN ISSUES EXPLORER</p>
       <form onSubmit={handleSubmit} class="ui form">
         <div>
           <input type="url" name="query" value={text} onChange={onChange} placeholder="GitHub repo URL" style={style} class="prompt" />

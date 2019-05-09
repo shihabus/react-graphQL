@@ -8,7 +8,7 @@ const httpLink = new HttpLink({ uri: URL });
 
 const authLink = new ApolloLink((operation, forward) => {
     // Retrieve the authorization token from local storage.
-    const TOKEN = 'd1fe88250e060f01984c4cd83e0bf262cf1f5803';
+    // const TOKEN = 'eca7ad69e00d852da9ef80c9143662167df257b7';
 
     // Use the setContext method to set the HTTP headers.
     operation.setContext({
