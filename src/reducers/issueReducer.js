@@ -12,7 +12,9 @@ const INITIAL_STATE = {
     count_prior_sevendays: 0,
     error: false,
     loading: false,
-    fetched:false
+    fetched:false,
+    owner:'',
+    name:''
 }
 
 export default function IssueReducer(state = INITIAL_STATE, action) {
@@ -22,15 +24,25 @@ export default function IssueReducer(state = INITIAL_STATE, action) {
         case ERROR: return { ...state, INITIAL_STATE,error:true,loading:false };
 
         case SUCCESS:
+            const {
+                total_count,
+                count_since_yesterday,
+                count_since_sevendays,
+                count_prior_sevendays,
+                owner,
+                name
+            }=action.payload
             return {
                 ...state,
                 error: false,
                 loading: false,
                 fetched: true,
-                total_count: action.payload.total_count,
-                count_since_yesterday: action.payload.count_since_yesterday,
-                count_since_sevendays: action.payload.count_since_sevendays,
-                count_prior_sevendays: action.payload.count_prior_sevendays,
+                total_count,
+                count_since_yesterday,
+                count_since_sevendays,
+                count_prior_sevendays,
+                owner,
+                name
             };
 
         default: return state

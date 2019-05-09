@@ -1,11 +1,14 @@
 import React from 'react'
 
-function LoaderComponent({isLoading}) {
+function LoaderComponent({ isLoading }) {
   return (
 
     <div>
       {
-          isLoading&&<div>Loading......</div>
+        isLoading &&
+        <div class="ui active inverted dimmer">
+          <div class="ui large text loader">Loading</div>
+        </div>
       }
     </div>
   )

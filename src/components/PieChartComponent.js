@@ -1,16 +1,39 @@
 import React from 'react'
+import CanvasJSReact from '../assets/js/canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 
 function PieChartComponent({ options }) {
-    const { count_since_sevendays, count_since_yesterday, error, total_count, count_prior_sevendays, loading, fetched } = options
+    const { count_since_sevendays, count_since_yesterday, total_count, count_prior_sevendays, fetched,owner,name } = options
+    const _options = {
+        animationEnabled: true,
+        title: {
+            text: `Open Issues in ${owner}`
+        },
+        subtitles: [{
+            text: `Total ${total_count}`,
+            verticalAlign: "center",
+            fontSize: 20,
+            dockInsidePlotArea: true
+        }],
+        data: [{
+            type: "doughnut",
+            showInLegend: true,
+            indexLabel: "{name}: {y}",
+            yValueFormatString: "#,###",
+            dataPoints: [
+                { name: "Since past sevendays", y: count_since_sevendays },
+                { name: "Since yesterday", y: count_since_yesterday },
+                { name: "Prior to past sevendays", y: count_prior_sevendays },
+            ]
+        }]
+    }
     return (
         <>
             {
                 fetched &&
                 <div>
-                    <div>total_count {total_count}</div>
-                    <div>count_since_yesterday {count_since_yesterday}</div>
-                    <div>count_since_sevendays {count_since_sevendays}</div>
-                    <div>count_prior_sevendays {count_prior_sevendays}</div>
+                    <CanvasJSChart options={_options} />
                 </div>
             }
         </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TextInput from '../Input'
+import TextInput from './Input'
 import ErrorComponent from './ErrorComponent'
 import LoaderComponent from './LoaderComponent'
 import PieChartComponent from './PieChartComponent'
@@ -18,7 +18,7 @@ class App extends React.Component {
     const {error,loading}=this.props
     const options=this.props
     return (
-      <div>
+      <div class="ui very padded container">
         <TextInput handleQuery={this.handleSubmit} />
         <ErrorComponent error={error}/>
         <LoaderComponent isLoading={loading}/>
@@ -30,7 +30,7 @@ class App extends React.Component {
 
 const mapStateToProps=({issues})=>{
   console.log(issues)
-  const {count_since_sevendays,count_since_yesterday,error,total_count,count_prior_sevendays,loading,fetched} =issues
+  const {count_since_sevendays,count_since_yesterday,error,total_count,count_prior_sevendays,loading,fetched,owner,name} =issues
   return {
     total_count,
     count_since_yesterday,
@@ -38,7 +38,9 @@ const mapStateToProps=({issues})=>{
     count_prior_sevendays,
     error,
     loading,
-    fetched
+    fetched,
+    owner,
+    name
   }
 }
 

@@ -1,14 +1,14 @@
-import * as types from '../constants/type';
-
 import gql from 'graphql-tag';
 import { ApolloClient, ApolloLink, InMemoryCache, HttpLink } from 'apollo-boost';
+import * as types from '../constants/type';
 
+// --------- GraphQL Client Configuration --------
 const URL = 'https://api.github.com/graphql'
 const httpLink = new HttpLink({ uri: URL });
 
 const authLink = new ApolloLink((operation, forward) => {
     // Retrieve the authorization token from local storage.
-    const TOKEN = 'df819f0f5a6fceadc14878bf8c103dcde9e34468';
+    const TOKEN = 'ec1525a8791a00f35524b45ea5ad04fd6369947f';
 
     // Use the setContext method to set the HTTP headers.
     operation.setContext({
@@ -29,10 +29,12 @@ const client = new ApolloClient({
 const sevenDaysBack = new Date(Date.now() - 864e5 * 7).toISOString();
 const yesterday = new Date(Date.now() - 864e5).toISOString();
 
+// Action to fetch open issue count
 export const fetchIssueCount = ({ owner, name }) => {
     return async (dispatch) => {
         dispatch({ type: types.LOADING })
         try {
+            // fetching total issue count
             let total_count_response = await client.query({
                 query: gql`{
                 repository(owner:"${owner}", name:"${name}"){
@@ -44,6 +46,7 @@ export const fetchIssueCount = ({ owner, name }) => {
             })
             let total_count = total_count_response.data.repository.issues.totalCount
 
+            // fetching issue count since yesterday
             let count_since_yesterday_response = await client.query({
                 query: gql`{
                 repository(owner:"${owner}", name:"${name}"){
@@ -55,6 +58,7 @@ export const fetchIssueCount = ({ owner, name }) => {
             })
             let count_since_yesterday = count_since_yesterday_response.data.repository.issues.totalCount
 
+            // fetching issue count since seven days
             let count_since_sevendays_response = await client.query({
                 query: gql`{
                 repository(owner:"${owner}", name:"${name}"){
@@ -71,6 +75,8 @@ export const fetchIssueCount = ({ owner, name }) => {
                 count_since_yesterday,
                 count_since_sevendays,
                 count_prior_sevendays: total_count - count_since_sevendays,
+                owner,
+                name
             }
             return dispatch({ type: types.SUCCESS, payload })
         }
