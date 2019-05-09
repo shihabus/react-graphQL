@@ -16,7 +16,6 @@ export default function Courses() {
         setRepoQuery({owner:'axios',name:'axios'})
       }, []);
 
-
     return (
         <>
         <Query
